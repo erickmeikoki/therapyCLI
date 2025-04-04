@@ -4,9 +4,27 @@ import os
 import sys
 import openai
 from colorama import init, Fore, Style
+from rich.console import Console
+from rich.table import Table
 
 # Initialize colorama for colored output
 init()
+
+console = Console()
+
+def display_welcome():
+    console.print("[bold magenta]Welcome to the Enhanced Therapy Bot![/bold magenta]")
+
+def display_mood_table(mood_history):
+    table = Table(title="Mood History")
+
+    table.add_column("Date", justify="right", style="cyan", no_wrap=True)
+    table.add_column("Mood", style="magenta")
+
+    for entry in mood_history:
+        table.add_row(entry['timestamp'], entry['mood'])
+
+    console.print(table)
 
 def test_api_key():
     print(f"{Fore.CYAN}Testing OpenAI API Key{Style.RESET_ALL}")
